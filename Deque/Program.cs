@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 public class Deque
 {
-    private class Item
+    public class Item
     {
         public int Value;
         public Item Prev;
@@ -57,7 +57,7 @@ public class Deque
     {
         if (IsEmpty())
         {
-            throw new InvalidOperationException("Дек пуст");
+            throw new InvalidOperationException("Deque is empty");
         }
 
         int value = _head.Value;
@@ -77,7 +77,7 @@ public class Deque
     {
         if (IsEmpty())
         {
-            throw new InvalidOperationException("Дек пуст");
+            throw new InvalidOperationException("Deque is empty");
         }
 
         int value = _tail.Value;
@@ -93,8 +93,7 @@ public class Deque
         return value;
     }
 
-    // служебные
-    public void ShowDeque()
+    public void Print()
     {
         Console.Write("Дек: ");
         Item current = _head;
@@ -105,10 +104,54 @@ public class Deque
         }
         Console.WriteLine();
     }
+
+    public int Count()
+    {
+        Item current = _head;
+        int count = 0;
+        while (current != null)
+        {
+            count++;
+            current = current.Next;
+        }
+        return count;
+    }
+
+
+    public Item GetHead()
+    {
+        return _head;
+    }
+
 }
 
 public class Program
 {
+    static void SortBubble(Deque deque)
+    {
+        int N = deque.Count();
+
+        bool flag = false;
+        for (int i = 0; i < N; i++)
+        {
+            flag = false;
+            Deque.Item current = deque.GetHead();
+            for (int j = 0; j < N - 1 - i; j++)
+            {
+                if (current.Value > current.Next.Value)
+                {
+                    int tmp = current.Value;
+                    current.Value = current.Next.Value;
+                    current.Next.Value = tmp;
+                    flag = true;
+                }
+                current = current.Next;
+            }
+
+            if (!flag) break;
+        }
+    }
+
     public static void Main(string[] args)
     {
         Deque deque = new Deque();
@@ -118,11 +161,16 @@ public class Program
         deque.PushLeft(3);
         deque.PushRight(4);
 
-        deque.ShowDeque();
+        //Console.WriteLine("Длина дека: " + deque.Count());
 
-        Console.WriteLine(deque.PopLeft()); // Output: 3
-        Console.WriteLine(deque.PopRight()); // Output: 4
-        Console.WriteLine(deque.PopLeft()); // Output: 1
-        Console.WriteLine(deque.PopLeft()); // Output: 2
+        deque.Print();
+        SortBubble(deque);
+        deque.Print();
+
+
+        //Console.WriteLine(deque.PopLeft()); // Output: 3
+        //Console.WriteLine(deque.PopRight()); // Output: 4
+        //Console.WriteLine(deque.PopLeft()); // Output: 1
+        //Console.WriteLine(deque.PopLeft()); // Output: 2
     }
 }
