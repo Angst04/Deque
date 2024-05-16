@@ -125,9 +125,9 @@ public class Deque
 
 }
 
-public class Program
+public class Sort : Deque
 {
-    static void SortBubble(Deque deque)
+    public void SortBubble(Deque deque)
     {
         int N = deque.Count();
 
@@ -151,9 +151,14 @@ public class Program
             if (!flag) break;
         }
     }
+}
 
+public class Program
+{
     public static void Main(string[] args)
     {
+        Sort sort = new Sort();
+
         Deque deque = new Deque();
 
         deque.PushLeft(1);
@@ -164,9 +169,8 @@ public class Program
         //Console.WriteLine("Длина дека: " + deque.Count());
 
         deque.Print();
-        SortBubble(deque);
+        sort.SortBubble(deque);
         deque.Print();
-
 
         //Console.WriteLine(deque.PopLeft()); // Output: 3
         //Console.WriteLine(deque.PopRight()); // Output: 4
