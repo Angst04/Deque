@@ -1,126 +1,137 @@
 ﻿using System;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 public class Deque
 {
     public class Item
     {
-        public int Value;
-        public Item Prev;
-        public Item Next;
+        public int Value;    // 1
+        public Item Prev;    // 1
+        public Item Next;    // 1
 
-        public Item(int value)
+        public Item(int value)    // 1
         {
-            Value = value;
+            Value = value;    // 1
         }
     }
 
-    private Item _head;
-    private Item _tail;
+    private Item _head;    // 1
+    private Item _tail;    // 1
 
-    public bool IsEmpty()
+    public bool IsEmpty()    // => 2
     {
-        return _head == null;
+        return _head == null;    // 1 + 1
     }
 
-    public void PushLeft(int value)
+    public void PushLeft(int value) // => 7
     {
-        Item newItem = new Item(value);
-        if (IsEmpty())
+        Item newItem = new Item(value);    // 2
+
+        // => 4>2 => 4
+        if (IsEmpty())    // 2 + 1
         {
-            _tail = newItem;
+            _tail = newItem;    // 1
         }
         else
         {
-            newItem.Next = _head;
-            _head.Prev = newItem;
+            newItem.Next = _head;    // 1
+            _head.Prev = newItem;    // 1
         }
-        _head = newItem;
+        _head = newItem;    // 1
     }
 
-    public void PushRight(int value)
+    public void PushRight(int value)    // => 7
     {
-        Item newElement = new Item(value);
-        if (IsEmpty())
+        Item newElement = new Item(value);    // 2
+
+        // => 4>2 => 4
+        if (IsEmpty())    // 3
         {
-            _head = newElement;
+            _head = newElement;    // 1
         }
         else
         {
-            newElement.Prev = _tail;
-            _tail.Next = newElement;
+            newElement.Prev = _tail;    // 1
+            _tail.Next = newElement;    // 1
         }
-        _tail = newElement;
+        _tail = newElement;    // 1    
     }
 
-    public int PopLeft()
+    public int PopLeft()    // => 9
     {
-        if (IsEmpty())
+        // => 3
+        if (IsEmpty())    // 2
         {
-            throw new InvalidOperationException("Deque is empty");
+            throw new InvalidOperationException("Deque is empty");  // 1
         }
 
-        int value = _head.Value;
-        _head = _head.Next;
-        if (_head != null)
+        int value = _head.Value;    // 1
+        _head = _head.Next;    // 1
+
+        // => 3 > 1 => 3
+        if (_head != null)  // 2
         {
-            _head.Prev = null;
+            _head.Prev = null;  // 1
         }
         else
         {
-            _tail = null;
+            _tail = null;   // 1
         }
-        return value;
+        return value;   // 1
     }
 
-    public int PopRight()
+    public int PopRight() // => 9
     {
-        if (IsEmpty())
+        // => 3
+        if (IsEmpty())  // 2
         {
-            throw new InvalidOperationException("Deque is empty");
+            throw new InvalidOperationException("Deque is empty"); // 1
         }
 
-        int value = _tail.Value;
-        _tail = _tail.Prev;
-        if (_tail != null)
+        int value = _tail.Value;    // 1
+        _tail = _tail.Prev; // 1
+
+        // => 3>1 => 3
+        if (_tail != null)  // 2
         {
-            _tail.Next = null;
+            _tail.Next = null;  // 1
         }
         else
         {
-            _head = null;
+            _head = null;   // 1
         }
-        return value;
+        return value;   // 1
     }
 
-    public void Print()
+    public void Print() // => !!!!
     {
-        Console.Write("Дек: ");
-        Item current = _head;
-        while (current != null)
+        Console.Write("Дек: "); // 1
+        Item current = _head;   // 1
+        while (current != null) // !!!!!
         {
-            Console.Write(current.Value + " ");
-            current = current.Next;
+            Console.Write(current.Value + " "); // 1
+            current = current.Next; // 1
         }
-        Console.WriteLine();
+        // Console.WriteLine();
     }
 
     public int Count()
     {
-        Item current = _head;
-        int count = 0;
-        while (current != null)
+        Item current = _head;   // 1
+        int count = 0;  // 1
+        while (current != null) // Сигма(i=1, n)
         {
-            count++;
-            current = current.Next;
+            count++;    // 1
+            current = current.Next; // 1
         }
-        return count;
+        return count;   // 1
     }
 
 
-    public Item GetHead()
+    public Item GetHead()   // => 1
     {
-        return _head;
+        return _head;   // 1
     }
 
 }
@@ -129,26 +140,26 @@ public class Sort : Deque
 {
     public void SortBubble(Deque deque)
     {
-        int N = deque.Count();
+        int N = deque.Count();  // Сигма(i=1, n)
 
-        bool flag = false;
-        for (int i = 0; i < N; i++)
+        bool flag = false;  // 1
+        for (int i = 0; i < N; i++) // 1 + 1 + Сигма(i=1, n)
         {
-            flag = false;
-            Deque.Item current = deque.GetHead();
-            for (int j = 0; j < N - 1 - i; j++)
+            flag = false;   // 1
+            Deque.Item current = deque.GetHead();   // 2
+            for (int j = 0; j < N - 1 - i; j++) //Сигма(j = 1, n - 1 - i)
             {
-                if (current.Value > current.Next.Value)
+                if (current.Value > current.Next.Value) // 2
                 {
-                    int tmp = current.Value;
-                    current.Value = current.Next.Value;
-                    current.Next.Value = tmp;
-                    flag = true;
+                    int tmp = current.Value;    // 1
+                    current.Value = current.Next.Value; // 1
+                    current.Next.Value = tmp;   // 1
+                    flag = true;    // 1
                 }
-                current = current.Next;
+                current = current.Next; // 1
             }
 
-            if (!flag) break;
+            if (!flag) break;   // 1
         }
     }
 }
@@ -159,22 +170,44 @@ public class Program
     {
         Sort sort = new Sort();
 
-        Deque deque = new Deque();
+        Random random = new Random();
 
-        deque.PushLeft(1);
-        deque.PushRight(2);
-        deque.PushLeft(3);
-        deque.PushRight(4);
+        var timer = new Stopwatch();
+
+        int size = 5000;
+
+        for (int i = 1; i <= 10; i++)
+        {
+            Deque deque = new Deque();
+
+            for (int j = 0; j < size * i; j++)
+            {
+                int randomValue = random.Next(1, 10001);
+                deque.PushRight(randomValue);
+            }
+
+            timer.Restart();
+            sort.SortBubble(deque);
+            timer.Stop();
+
+            Console.WriteLine($"Размер данных: {deque.Count()}, Время выполнения: {timer.Elapsed}");
+        }
+
+
+        //deque.PushLeft(1);
+        //deque.PushRight(2);
+        //deque.PushLeft(3);
+        //deque.PushRight(4);
 
         //Console.WriteLine("Длина дека: " + deque.Count());
 
-        deque.Print();
-        sort.SortBubble(deque);
-        deque.Print();
+        //deque.Print();
+        //sort.SortBubble(deque);
+        //deque.Print();
 
-        //Console.WriteLine(deque.PopLeft()); // Output: 3
-        //Console.WriteLine(deque.PopRight()); // Output: 4
-        //Console.WriteLine(deque.PopLeft()); // Output: 1
-        //Console.WriteLine(deque.PopLeft()); // Output: 2
+        //Console.WriteLine(deque.PopLeft());    // Output: 3
+        //Console.WriteLine(deque.PopRight());    // Output: 4
+        //Console.WriteLine(deque.PopLeft());    // Output: 1
+        //Console.WriteLine(deque.PopLeft());    // Output: 2
     }
 }
