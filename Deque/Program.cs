@@ -10,7 +10,7 @@ public class Deque
         public Item Prev;    // 1
         public Item Next;    // 1
 
-        public Item(int value)    // 1
+        public Item(int value)    // 1 + 1
         {
             Value = value;    // 1
         }
@@ -113,7 +113,7 @@ public class Deque
             Console.Write(current.Value + " "); // 1
             current = current.Next; // 1
         }
-        // Console.WriteLine();
+        Console.WriteLine();    // 1
     }
 
     public int Count()
@@ -134,6 +134,53 @@ public class Deque
         return _head;   // 1
     }
 
+    public int Get(int pos, Deque tmp)
+    {
+        if (IsEmpty())
+        {
+            throw new Exception("Дек пуст");
+        }
+
+        for (int i = 0; i < pos; i++)
+        {
+            tmp.PushLeft(PopLeft());
+        }
+
+        int result = _head.Value;
+
+        while (!tmp.IsEmpty())
+        {
+            PushLeft(tmp.PopLeft());
+        }
+
+        return result;
+    }
+
+    public void Set(int pos, int newValue, Deque tmp)
+    {
+        if (IsEmpty())
+        {
+            throw new Exception("Дек пуст");
+        }
+
+        for (int i = 0; i < pos; i++)
+        {
+            tmp.PushLeft(PopLeft());
+        }
+
+        _head.Value = newValue;
+
+        while (!tmp.IsEmpty())
+        {
+            PushLeft(tmp.PopLeft());
+        }
+    }
+
+    //public int this[int index]
+    //{
+    //    get => Get(index, new Deque());
+    //    set => Set(index, value, new Deque());
+    //}
 }
 
 public class Sort : Deque
