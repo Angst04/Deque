@@ -196,6 +196,49 @@ namespace Deque
                 if (!flag) break;   // 1
             }
         }
+
+        public static void SortBubbleNew(Deque deque, int N)
+        {
+            bool flag = false;
+            for (int i = 0; i < N; i++)
+            {
+                flag = false;
+                for (int j = 0; j < N - 1 - i; j++)
+                {
+                    if (deque[j] > deque[j + 1])
+                    {
+                        int tmp = deque[j];
+                        deque[j] = deque[j + 1];
+                        deque[j + 1] = tmp;
+                        flag = true;
+                    }
+                }
+
+                if (!flag) break;
+            }
+        }
+
+        public static void SortBubbleNew(int[] arr)
+        {
+            int N = arr.Length;
+
+            bool flag = false;
+            for (int i = 0; i < N; i++)
+            {
+                flag = false;
+                for (int j = 0; j < N - 1 - i; j++)
+                {
+                    if (arr[j] > arr[j + 1])
+                    {
+                        int tmp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = tmp;
+                        flag = true;
+                    }
+                }
+
+                if (!flag) break;
+            }
+        }
     }
 }
-

@@ -13,7 +13,7 @@ public class Program
 
         var timer = new Stopwatch();
 
-        int size = 5000;
+        int size = 100;
 
         for (int i = 1; i <= 10; i++)
         {
@@ -25,28 +25,14 @@ public class Program
                 deque.PushRight(randomValue);
             }
 
+            int N = deque.Count();
+
             timer.Restart();
-            sort.SortBubble(deque);
+            //sort.SortBubble(deque);
+            Sort.SortBubbleNew(deque, N);
             timer.Stop();
 
             Console.WriteLine($"Размер данных: {deque.Count()}, Время выполнения: {timer.Elapsed}");
         }
-
-
-        //deque.PushLeft(1);
-        //deque.PushRight(2);
-        //deque.PushLeft(3);
-        //deque.PushRight(4);
-
-        //Console.WriteLine("Длина дека: " + deque.Count());
-
-        //deque.Print();
-        //sort.SortBubble(deque);
-        //deque.Print();
-
-        //Console.WriteLine(deque.PopLeft());    // Output: 3
-        //Console.WriteLine(deque.PopRight());    // Output: 4
-        //Console.WriteLine(deque.PopLeft());    // Output: 1
-        //Console.WriteLine(deque.PopLeft());    // Output: 2
     }
 }
