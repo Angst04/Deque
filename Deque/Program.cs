@@ -28,8 +28,7 @@ public class Program
             int N = deque.Count();
 
             timer.Restart();
-            //sort.SortBubble(deque);
-            Sort.SortBubbleNew(deque, N);
+            Sort.SortBubble(deque, N);
             timer.Stop();
 
             Console.WriteLine($"Размер данных: {deque.Count()}, Время выполнения: {timer.Elapsed}");
